@@ -1,15 +1,22 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 <template>
-  <v-container fluid>
+  <v-container class="grey lighten-4" fluid>
     <v-row dense>
-      <v-col cols="6" class="grey lighten-4">
-        <h2 class="text-center ma-2 title font-weight-bold">Basic JavaScript: Comment Your JavaScript Code</h2>
-        <section id="description"><p>Comments are lines of code that JavaScript will intentionally ignore. Comments are a great way to leave notes to yourself and to other people who will later need to figure out what that code does.</p><p>There are two ways to write comments in JavaScript:</p><p>Using <code>//</code> will tell JavaScript to ignore the remainder of the text on the current line:</p><p><pre><code class="language-js">// This is an in-line comment.</code></pre></p><p>You can make a multi-line comment beginning with <code>/*</code> and ending with <code>*/</code>:</p><p><pre><code class="language-js">/* This is amulti-line comment */</code></pre></p><p><strong>Best Practice</strong><br>As you write code, you should regularly add comments to clarify the function of parts of your code. Good commenting can help communicate the intent of your code—both for others <em>and</em> for your future self.</p></section>
-        <hr/>
-        <section id="instructions" class="ma-4 title"><p>Try creating one of each type of comment.</p></section>
-        <hr/>
-        <v-btn class="my-2" outlined block color="indigo">Run the Tests</v-btn>
-        <v-btn class="my-2" outlined block color="indigo">Reset All Code</v-btn>
+      <v-col cols="6">
+        <h2 class="text-center ma-2 title font-weight-bold">
+          Basic JavaScript: Comment Your JavaScript Code
+        </h2>
+        <Description></Description>
+        <hr />
+        <section id="instructions" class="ma-4 title">
+          <p>Try creating one of each type of comment.</p>
+        </section>
+        <hr />
+        <v-btn class="my-2 grey lighten-1 title" outlined block color="indigo"
+          >Run the Tests</v-btn
+        >
+        <v-btn class="my-2 grey lighten-1 title" outlined block color="indigo"
+          >Reset All Code</v-btn
+        >
         <v-overflow-btn
           class="my-2"
           :items="dropdownItems"
@@ -18,41 +25,70 @@
           block
           type="button"
         ></v-overflow-btn>
-        <section id="test-instructions" class="headline grey lighten-2 pa-4">You should create a <code>//</code> style comment that contains at least five letters.</section>
-        <section id="test-instructions" class="headline grey lighten-2 pa-4">You should create a <code>/* */</code> style comment that contains at least five letters.</section>
+        <section id="test-instructions" class="headline grey lighten-2 pa-4">
+          <v-list>
+            <v-list-item v-for="(item, i) in items" :key="i">
+              <v-list-item-icon>
+                <v-icon large>mdi-flask</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title v-text="item.text"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+          <v-icon large>mdi-flask</v-icon>
+          You should create a <code>//</code> style comment that contains at
+          least five letters.
+        </section>
+        <section id="test-instructions" class="headline grey lighten-2 pa-4">
+          <v-icon large>mdi-flask</v-icon>
+          You should create a <code>/* */</code> style comment that contains at
+          least five letters.
+        </section>
       </v-col>
       <v-col cols="6">
         <MonacoEditor
-      width="800"
-      height="500"
-      theme="vs-dark"
-      language="javascript"
-      :options="options"
-      @change="onChange"
-    ></MonacoEditor>
+          theme="vs-dark"
+          language="javascript"
+          @change="onChange"
+        ></MonacoEditor>
+        <v-divider></v-divider>
+        <section id="">
+          <pre>
+// running tests
+You should create a // style comment that contains at least five letters.
+You should create a /* */ style comment that contains at least five letters.
+// tests completed</pre
+          >
+        </section>
       </v-col>
     </v-row>
   </v-container>
 </template>
 xjkk
-<script lang="ts">
-import Vue from "vue"
+<script>
 import MonacoEditor from 'monaco-editor-vue'
+import Description from './Description'
 
-export default Vue.extend({
-  name: "ChallengePlayer",
+export default {
+  name: 'ChallengePlayer',
   components: {
-    MonacoEditor
+    MonacoEditor,
   },
 
   data: () => ({
     dropdownItems: ['Get a Hint', 'Watch a Video', 'Ask for Help'],
-    methods: {
-      onChange(value: any) {
-        console.log(value)
-      }
-    },
-    }),
-  })
-
+    items: [
+      { text: 'You should not change code above the specified comment.' },
+      { text: '<code>a</code> should have a value of 7.' },
+      { text: 'b should have a value of 7.' },
+      { text: 'a should be assigned to b with =.' },
+    ],
+  }),
+}
 </script>
+<style scoped>
+#description {
+  font-size: larger;
+}
+</style>
