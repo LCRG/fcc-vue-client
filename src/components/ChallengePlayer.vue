@@ -72,19 +72,32 @@ import Description from './Description'
 
 export default {
   name: 'ChallengePlayer',
+  props: ['challengeBundle'],
   components: {
     MonacoEditor,
+    Description
   },
-
+  computed: {
+    challenges: function() {
+      return this.challengeBundle['responsive-web-design'].blocks['css-grid']
+        .challenges
+    }
+  },
   data: () => ({
     dropdownItems: ['Get a Hint', 'Watch a Video', 'Ask for Help'],
     items: [
       { text: 'You should not change code above the specified comment.' },
       { text: '<code>a</code> should have a value of 7.' },
       { text: 'b should have a value of 7.' },
-      { text: 'a should be assigned to b with =.' },
-    ],
+      { text: 'a should be assigned to b with =.' }
+    ]
   }),
+
+  methods: {
+    onChange: function() {
+      console.log(this.challenges)
+    }
+  }
 }
 </script>
 <style scoped>

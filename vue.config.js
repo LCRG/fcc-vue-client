@@ -1,7 +1,7 @@
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 
 module.exports = {
-  transpileDependencies: ["vuetify"],
+  transpileDependencies: ['vuetify'],
   chainWebpack: config => {
     config.plugin('monaco-editor').use(MonacoWebpackPlugin, [
       {
@@ -10,4 +10,4 @@ module.exports = {
       }
     ])
   }
-};
+}
