@@ -3,13 +3,11 @@
     <v-row dense>
       <v-col cols="6">
         <h2 class="text-center ma-2 title font-weight-bold">
-          Basic JavaScript: Comment Your JavaScript Code
+          {{ challenge.block }} : {{ challenge.title }}
         </h2>
-        <Description></Description>
+        <span v-html="challenge.description"></span>
         <hr />
-        <section id="instructions" class="ma-4 title">
-          <p>Try creating one of each type of comment.</p>
-        </section>
+        <span class="ma-4 title" v-html="challenge.instructions"> </span>
         <hr />
         <v-btn class="my-2 grey lighten-1 title" outlined block color="indigo"
           >Run the Tests</v-btn
@@ -25,31 +23,26 @@
           block
           type="button"
         ></v-overflow-btn>
-        <section id="test-instructions" class="headline grey lighten-2 pa-4">
-          <v-list>
-            <v-list-item v-for="(item, i) in items" :key="i">
-              <v-list-item-icon>
-                <v-icon large>mdi-flask</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title v-text="item.text"></v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-          <v-icon large>mdi-flask</v-icon>
-          You should create a <code>//</code> style comment that contains at
-          least five letters.
-        </section>
-        <section id="test-instructions" class="headline grey lighten-2 pa-4">
-          <v-icon large>mdi-flask</v-icon>
-          You should create a <code>/* */</code> style comment that contains at
-          least five letters.
-        </section>
+
+        <v-list class="grey lighten-2 pa-4">
+          <v-list-item v-for="(item, i) in challenge.tests" :key="i">
+            <v-list-item-icon>
+              <v-icon large>mdi-flask</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-subtitle
+                v-html="item.text"
+                white-space="wrap"
+              ></v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
       </v-col>
       <v-col cols="6">
         <MonacoEditor
           theme="vs-dark"
-          language="javascript"
+          :language="codeLanguage"
+          :value="codeValue"
           @change="onChange"
         ></MonacoEditor>
         <v-divider></v-divider>
@@ -65,37 +58,33 @@ You should create a /* */ style comment that contains at least five letters.
     </v-row>
   </v-container>
 </template>
-xjkk
 <script>
 import MonacoEditor from 'monaco-editor-vue'
-import Description from './Description'
 
 export default {
   name: 'ChallengePlayer',
-  props: ['challengeBundle'],
+  props: ['challenge'],
   components: {
-    MonacoEditor,
-    Description
+    MonacoEditor
   },
-  computed: {
-    challenges: function() {
-      return this.challengeBundle['responsive-web-design'].blocks['css-grid']
-        .challenges
+  data() {
+    return {
+      dropdownItems: ['Get a Hint', 'Watch a Video', 'Ask for Help'],
+      code: 'Sample code',
+      language: 'javascript'
     }
   },
-  data: () => ({
-    dropdownItems: ['Get a Hint', 'Watch a Video', 'Ask for Help'],
-    items: [
-      { text: 'You should not change code above the specified comment.' },
-      { text: '<code>a</code> should have a value of 7.' },
-      { text: 'b should have a value of 7.' },
-      { text: 'a should be assigned to b with =.' }
-    ]
-  }),
-
+  computed: {
+    codeValue: function() {
+      return this.challenge.files[0].contents
+    },
+    codeLanguage: function() {
+      return this.challenge.files[0].ext
+    }
+  },
   methods: {
-    onChange: function() {
-      console.log(this.challenges)
+    onChange: function(value) {
+      console.log(`Someone typed ${value} in the Monaco Editor`)
     }
   }
 }

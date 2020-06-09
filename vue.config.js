@@ -6,7 +6,10 @@ module.exports = {
     config.plugin('monaco-editor').use(MonacoWebpackPlugin, [
       {
         // Languages are loaded on demand at runtime
-        languages: ['json', 'javascript', 'html', 'xml', 'css']
+        languages: ['json', 'javascript', 'html', 'xml', 'css'],
+        minimap: {
+          enabled: false
+        }
       }
     ])
   }

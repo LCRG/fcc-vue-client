@@ -6,6 +6,12 @@ import vuetify from './plugins/vuetify'
 
 Vue.config.productionTip = false
 
+Vue.filter('noHypensAllCaps', function(value) {
+  if (!value) return ''
+  value = value.toString().toUpperCase()
+  return value.replace(/-/g, ' ')
+})
+
 new Vue({
   router,
   store,

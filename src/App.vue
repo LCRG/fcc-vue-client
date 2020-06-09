@@ -1,15 +1,15 @@
 <template>
   <v-app>
-    <v-navigation-drawer v-model="drawer" app>
+    <v-navigation-drawer v-model="drawer" app width="440">
       <DrawerList v-bind:superBlocks="superBlocks"></DrawerList>
     </v-navigation-drawer>
-    <v-app-bar app color="primary" dark>
+    <v-app-bar app class="indigo" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>FreeCodeCamp Challenge Player</v-toolbar-title>
     </v-app-bar>
 
     <v-content>
-      <ChallengePlayer v-bind:challengeBundle="challengeBundle" />
+      <ChallengePlayer v-bind:challenge="currentChallenge" />
     </v-content>
   </v-app>
 </template>
@@ -47,7 +47,12 @@ export default {
     superBlocks() {
       let bundleKeys = Object.keys(this.challengeBundle)
       return bundleKeys.map(superBlock => this.challengeBundle[`${superBlock}`])
+    },
+    currentChallenge() {
+      return this.$store.getters.getCurrentChallenge
     }
+  },
+  methods: {
   }
 }
 </script>
