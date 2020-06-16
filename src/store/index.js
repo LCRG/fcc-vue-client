@@ -25,21 +25,31 @@ export default new Vuex.Store({
         }
       ],
       block: 'Sample Category'
-    }
+    },
+    challengeBundle: {}
   },
   mutations: {
     setCurrentChallenge(state, challenge) {
       state.currentChallenge = challenge
+    },
+    setChallengeBundle(state, bundle) {
+      state.challengeBundle = bundle
     }
   },
   actions: {
     setCurrentChallenge(context, challenge) {
       context.commit('setCurrentChallenge', challenge)
+    },
+    setChallengeBundle(context, bundle) {
+      context.commit('setChallengeBundle', bundle)
     }
   },
   getters: {
     getCurrentChallenge: state => {
       return state.currentChallenge
+    },
+    getChallengeBundle: state => {
+      return state.challengeBundle
     }
   }
 })

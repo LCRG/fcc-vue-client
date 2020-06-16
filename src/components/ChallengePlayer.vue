@@ -37,6 +37,7 @@
             </v-list-item-content>
           </v-list-item>
         </v-list>
+        <v-btn outlined @click="onTest">Test Things</v-btn>
       </v-col>
       <v-col cols="6">
         <MonacoEditor
@@ -48,10 +49,9 @@
         <v-divider></v-divider>
         <section id="">
           <pre>
-// running tests
-You should create a // style comment that contains at least five letters.
-You should create a /* */ style comment that contains at least five letters.
-// tests completed</pre
+/**
+* Your test output will go here.
+*/</pre
           >
         </section>
       </v-col>
@@ -85,6 +85,21 @@ export default {
   methods: {
     onChange: function(value) {
       console.log(`Someone typed ${value} in the Monaco Editor`)
+    },
+    onTest: function() {
+      const curriculum = this.$store.getters.getChallengeBundle
+      const allChallenges = Object.keys(curriculum)
+        .map(key => curriculum[key].blocks)
+        .reduce((challengeArray, superBlock) => {
+          const challengesForBlock = Object.keys(superBlock).map(
+            key => superBlock[key].challenges
+          )
+          return [
+            ...challengeArray,
+            ...challengesForBlock.reduce((a, b) => a.concat(b), [])
+          ]
+        }, [])
+      console.log(allChallenges)
     }
   }
 }

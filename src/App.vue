@@ -38,6 +38,7 @@ export default {
       .get('challenge-bundle.json')
       .then(response => {
         this.challengeBundle = response.data
+        this.$store.dispatch('setChallengeBundle', this.challengeBundle)
       })
       .catch(error => {
         console.log(error)
@@ -52,7 +53,6 @@ export default {
       return this.$store.getters.getCurrentChallenge
     }
   },
-  methods: {
-  }
+  methods: {}
 }
 </script>
